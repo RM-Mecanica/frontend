@@ -8,14 +8,14 @@
 **Atualizado em 07/10/2026.**
 
 - **Estado:** documentação e ferramentas montadas. **Nenhuma linha de código de produto existe.** Não há `package.json`, nem projeto Supabase.
-- **Repositório:** `github.com/RM-Mecanica/frontend`, branch `main`, um commit ("Initial commit", só o README). Tudo o que foi criado em 07/10/2026 está **sem commit**.
+- **Repositório:** `github.com/RM-Mecanica/frontend`, branch `main`, quatro commits. A estrutura de 07/10/2026 está commitada direto na `main` (três commits: documentos, spec-kit, ferramentas) e **ainda não foi feito push** — `main` está 3 commits à frente de `origin/main`.
 - **Fase:** antes da Fase 1. Tarefa base B00 concluída; B01 é a próxima.
 
 ## Próximo passo
 
-1. Liberar espaço em disco na máquina de desenvolvimento (ver Bloqueios).
-2. Fechar as três decisões que travam o scaffold: D1, D2 e D3 abaixo.
-3. Revisar os documentos e commitar a estrutura. Sugestão de mensagem: `📚 docs(specs): add product docs, spec-kit and graphify setup`.
+1. Revisar os três commits e dar `git push`.
+2. Liberar espaço em disco na máquina de desenvolvimento (ver Bloqueios).
+3. Fechar as três decisões que travam o scaffold: D1, D2 e D3 abaixo.
 4. Seguir `tarefas.md` a partir de B02 (criar o projeto Next.js).
 5. Com a base pronta, abrir o primeiro pedido: `/speckit-specify` com o texto de P1.1.
 
@@ -34,6 +34,7 @@
 - **graphify** ligado ao repositório: seção no `CLAUDE.md`, hooks do Claude Code em `.claude/settings.json`, hooks de git (`post-commit` e `post-checkout`) e grafo inicial em `graphify-out/` com pouco mais de 300 nós. Por enquanto o grafo cobre os títulos dos documentos de `doc/` e os scripts do spec-kit; `graphify query` já funciona sobre eles.
 - **MCPs `kh-*`** consultados (architecture, ddd, design, frontend, security). O que cada um respondeu está em `regras.md`, seção 4.
 - Criados `CLAUDE.md` (porta de entrada do agente) e um `.gitignore` mínimo.
+- Tudo commitado direto na `main`, em três commits: `8d2612e` (documentos), `252303e` (spec-kit), `7a191ec` (ferramentas). Sem push.
 
 ## Decisões tomadas
 
@@ -47,6 +48,8 @@
 | 07/10/2026 | Nível de combustível em cinco botões, em vez de slider | Mesmo resultado com alvo de toque maior |
 | 07/10/2026 | `.claude/settings.json` fica fora do git | O hook do graphify grava o caminho absoluto do binário, que muda de máquina para máquina |
 | 07/10/2026 | Sem `.mcp.json` no repositório | Os MCPs `kh-*` são locais, configurados no usuário com caminhos absolutos |
+| 07/10/2026 | `graphify-out/` fica fora do git (resolve D9) | É gerado, e o hook `post-commit` o reescreve a cada commit, deixando a árvore suja. Recria com `graphify update .` |
+| 07/10/2026 | Estrutura commitada direto na `main`, em três commits | Decisão do dono do repositório; não há ninguém mais trabalhando na branch |
 
 ## Decisões em aberto
 
@@ -63,7 +66,6 @@
 - **D6 — Lista do que fica fora do produto** (`prd.md`, seção 4): é uma proposta, precisa de aceite.
 - **D7 — Assinatura do termo de entrada.** A arte tem uma etapa "Assinatura"; o prompt pede um campo de assinatura no PDF. A documentação assume assinatura no papel. Captura na tela seria escopo novo.
 - **D8 — Bibliotecas ainda sem escolha:** arrastar no Kanban e geração de PDF. Recomendações em `arquitetura.md`, seção 3.
-- **D9 — Versionar `graphify-out/`?** Hoje não está no `.gitignore` nem commitado.
 - **D10 — Metas de sucesso da v1** (`prd.md`, seção 3): são propostas, a validar com a oficina.
 
 ## Montar o ambiente em outra máquina
