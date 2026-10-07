@@ -1,0 +1,28 @@
+# dependências e build
+node_modules/
+.next/
+out/
+dist/
+coverage/
+
+# segredos e configuração local
+.env
+.env.*
+!.env.example
+
+# estado local de ferramentas
+# settings.json guarda o caminho absoluto do graphify; cada máquina gera o seu com `graphify claude install`
+.claude/settings.json
+.claude/settings.local.json
+supabase/.temp/
+supabase/.branches/
+*.tsbuildinfo
+next-env.d.ts
+
+# sistema
+.DS_Store
+npm-debug.log*
+
+# grafo do graphify: gerado, reconstruído pelo hook post-commit a cada commit
+# recria com `graphify update .`
+graphify-out/
