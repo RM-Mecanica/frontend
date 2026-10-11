@@ -8,7 +8,7 @@ import { ENTRY_KIND_LABEL, type FinancialEntry } from "@/domain/finance/entry";
 // descrição + valor (as colunas do meio somem via CSS no organismo).
 export function FinanceEntryRow({ entry }: { entry: FinancialEntry }) {
   const isRevenue = entry.kind === "receita";
-  const toneText = isRevenue ? "text-success-strong" : "text-primary";
+  const toneText = isRevenue ? "text-success-strong" : "text-danger-strong";
 
   return (
     <div className="grid grid-cols-[1.5fr_1fr_auto] items-center gap-4 border-t border-border px-6 py-4 text-xs md:grid-cols-[1.5fr_1fr_0.7fr_0.8fr_0.8fr]">
@@ -18,7 +18,7 @@ export function FinanceEntryRow({ entry }: { entry: FinancialEntry }) {
             "flex size-7 items-center justify-center rounded-md [&_svg]:size-4",
             isRevenue
               ? "bg-success/15 text-success-strong"
-              : "bg-primary/15 text-primary",
+              : "bg-danger/15 text-danger-strong",
           )}
         >
           {isRevenue ? <ArrowUpRight /> : <ArrowDownRight />}

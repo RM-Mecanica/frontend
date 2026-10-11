@@ -6,23 +6,26 @@
 
 ## 1. Cores
 
-### Paleta da arte
+### Paleta da marca (derivada da logo)
 
-| Token | Hex | Onde aparece na arte |
-|---|---|---|
-| `navy-900` | `#0B1F3A` | Sidebar; pílula "Entregue" |
-| `navy-700` | `#173F6D` | Azul principal: pílula do usuário, números, linha de despesa, "Em execução" |
-| `orange-500` | `#FF7A1A` | Marca, botão principal, linha de receita, "Aprovado" |
-| `ink` | `#142033` | Texto principal |
-| `slate` | `#68758A` | Texto secundário; "Ag. orçamento" |
-| `canvas` | `#F4F7FB` | Fundo da página |
-| `surface` | `#FFFFFF` | Cards |
-| `subtle` | `#E9EEF5` | Fundo das colunas do Kanban |
-| `on-dark` | `#C5D2E5` | Texto sobre a sidebar |
-| `success` | `#20A36A` | "Pronto", faturamento |
-| `warning` | `#F2B84B` | "Ag. peça", atenção |
-| `danger` | `#D94B5B` | Alerta de veículo parado |
-| `info` | `#2F8FC9` | "Orçamento enviado" |
+> A identidade foi realinhada à **logo da RM Mecânica** (`public/logo.jpg`): navy nas letras "RM", cyan na silhueta do carro. A paleta antiga (navy + laranja) vinha da arte do Canva e foi substituída. O laranja saiu da identidade; verde/âmbar/vermelho continuam só como cores **de status** (significado, não marca).
+
+| Papel | Token | Hex | Uso |
+|---|---|---|---|
+| Primária | `primary` | `#1E3A8A` | Navy da logo. Ação principal; texto branco (8,6:1) |
+| Secundária | `secondary` | `#2563A8` | Navy intermediário; ações de apoio |
+| Acento | `info` / `ring` | `#0EA5E9` | Cyan da logo. Ícone, preenchimento, foco, gráfico — **nunca texto** |
+| Acento (texto) | `info-strong` | `#0369A1` | Cyan escuro para texto pequeno (4,6:1) |
+| Texto | `foreground` | `#171717` | Texto principal (chumbo da logo) |
+| Secundário | `muted-foreground` | `#566173` | Texto de apoio |
+| Fundo | `background` | `#F8FAFC` | Fundo da página (off-white da logo) |
+| Cards | `card` | `#FFFFFF` | Superfície |
+| Sidebar | `sidebar` | `#0B1F3A` | Navy escuro; destaque do item ativo em cyan |
+| success | `success` | `#20A36A` | "Pronto", faturamento |
+| warning | `warning` | `#F2B84B` | "Ag. peça", atenção |
+| danger | `danger` | `#D94B5B` | Saída/custo, veículo parado |
+
+Os valores exatos (claro e escuro) e as variantes `-strong` ficam em `src/app/globals.css`, que é a fonte única da verdade (tokens; nenhum hex solto em componente).
 
 ### Ajustes de contraste (medidos)
 
@@ -182,7 +185,7 @@ Na arte, o título de página tem 28 px e o corpo fica entre 14 e 17 px; a tabel
 | Até 1023 px (celular e tablet em pé) | Barra inferior fixa com até 5 itens | Uma coluna; listas viram cards; Kanban rola na horizontal, uma coluna por vez |
 | A partir de 1024 px | Sidebar fixa de 240 px | Grade de cards; Kanban com todas as colunas |
 
-- **Sidebar** (ordem da arte, mais Clientes e Veículos): Visão geral · Atendimentos · Ordens de serviço · Clientes · Veículos · Agenda · Estoque · Financeiro · Equipe · Configurações. Item de fase futura fica **oculto** até existir; nada de item desabilitado.
+- **Sidebar**, dividida em **Menu principal** (Visão geral · Ordens de serviço · Financeiro · Clientes) e **Gestão** (Relatórios · Configurações), com seletor de oficina no topo e perfil no rodapé. Na v1 em produção, item de fase futura fica **oculto** até existir; nada de item desabilitado. **Exceção do protótipo visual atual:** Relatórios e Configurações aparecem como placeholder "em breve" para validar a navegação completa — ao virar feature de verdade, cada um ganha tela ou volta a ficar oculto.
 - **Barra inferior** (proposta): Início · OS · **+ Novo atendimento** (central, laranja) · Clientes · Mais.
 - **Cabeçalho de página:** título, subtítulo, e a ação principal da tela. No celular a ação principal fica fixa no rodapé, acima da barra de navegação.
 - O menu respeita o perfil: o mecânico vê só o que usa.

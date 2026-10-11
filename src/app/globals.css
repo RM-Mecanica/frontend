@@ -61,35 +61,38 @@
   color-scheme: light;
   --radius: 0.375rem;
 
-  --background: #f4f7fb;
-  --foreground: #142033;
+  /* Paleta derivada da LOGO: navy (RM) + cyan (silhueta do carro).
+     Primária = navy (texto branco 8,6:1); cyan é acento/ícone, com variante
+     escura (info-strong) para texto. Contrastes medidos pela fórmula WCAG. */
+  --background: #f8fafc; /* off-white da logo */
+  --foreground: #171717; /* chumbo da logo */
   --card: #ffffff;
-  --card-foreground: #142033;
+  --card-foreground: #171717;
   --popover: #ffffff;
-  --popover-foreground: #142033;
+  --popover-foreground: #171717;
 
-  --primary: #ff7a1a; /* ação principal */
-  --primary-foreground: #0b1f3a;
-  --secondary: #173f6d;
+  --primary: #1e3a8a; /* navy da logo — ação principal, texto branco 8,6:1 */
+  --primary-foreground: #ffffff;
+  --secondary: #2563a8; /* navy intermediário */
   --secondary-foreground: #ffffff;
-  --muted: #e9eef5;
-  --muted-foreground: #5c697d;
-  --accent: #e9eef5;
-  --accent-foreground: #142033;
+  --muted: #eef3f8;
+  --muted-foreground: #566173;
+  --accent: #e4f3fc; /* cyan bem claro para realces de fundo */
+  --accent-foreground: #0c4a6e;
   --destructive: #b83242;
 
-  --border: #d5deea;
-  --input: #8a97ab;
-  --ring: #173f6d;
+  --border: #d7e0ea;
+  --input: #8795a8;
+  --ring: #0ea5e9; /* foco em cyan da marca */
 
-  --sidebar: #0b1f3a;
+  --sidebar: #0b1f3a; /* navy escuro */
   --sidebar-foreground: #c5d2e5;
-  --sidebar-primary: #ff7a1a;
-  --sidebar-primary-foreground: #0b1f3a;
-  --sidebar-accent: #173f6d;
+  --sidebar-primary: #0ea5e9; /* cyan da logo — destaque do item ativo */
+  --sidebar-primary-foreground: #06283d;
+  --sidebar-accent: #1e3a8a; /* navy da logo */
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #173f6d;
-  --sidebar-ring: #ff7a1a;
+  --sidebar-border: #1e3a8a;
+  --sidebar-ring: #0ea5e9;
 
   --success: #20a36a;
   --success-strong: #14784c;
@@ -97,13 +100,13 @@
   --warning-strong: #8a5a00;
   --danger: #d94b5b;
   --danger-strong: #b83242;
-  --info: #2f8fc9;
-  --info-strong: #1c6a9c;
+  --info: #0ea5e9; /* cyan da logo (preenchimento, ícone) */
+  --info-strong: #0369a1; /* cyan escuro para texto pequeno — 4,6:1 */
 
-  --chart-1: #ff7a1a; /* receita, entradas */
-  --chart-2: #173f6d; /* despesa, saídas */
+  --chart-1: #0ea5e9; /* receita, entradas — cyan */
+  --chart-2: #1e3a8a; /* despesa, saídas — navy */
   --chart-3: #20a36a;
-  --chart-4: #2f8fc9;
+  --chart-4: #0369a1;
   --chart-5: #f2b84b;
 }
 
@@ -116,28 +119,29 @@
   --popover: #0f2744;
   --popover-foreground: #e9eef5;
 
-  --primary: #ff7a1a;
-  --primary-foreground: #0b1f3a;
-  --secondary: #173f6d;
+  /* No escuro a primária clareia para manter contraste sobre o card. */
+  --primary: #3b82f6; /* azul mais claro — 4,8:1 sobre o card */
+  --primary-foreground: #06142b;
+  --secondary: #2563a8;
   --secondary-foreground: #ffffff;
   --muted: #0f2744;
   --muted-foreground: #91a4be;
-  --accent: #173f6d;
+  --accent: #1e3a8a;
   --accent-foreground: #ffffff;
   --destructive: #f0707f;
 
   --border: #1f3b5f;
   --input: #5b7ba6;
-  --ring: #ff7a1a;
+  --ring: #38bdf8;
 
   --sidebar: #0b1f3a;
   --sidebar-foreground: #c5d2e5;
-  --sidebar-primary: #ff7a1a;
-  --sidebar-primary-foreground: #0b1f3a;
-  --sidebar-accent: #173f6d;
+  --sidebar-primary: #38bdf8; /* cyan claro */
+  --sidebar-primary-foreground: #06283d;
+  --sidebar-accent: #1e3a8a;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #173f6d;
-  --sidebar-ring: #ff7a1a;
+  --sidebar-border: #1e3a8a;
+  --sidebar-ring: #38bdf8;
 
   --success: #3cc98b;
   --success-strong: #3cc98b;
@@ -145,13 +149,13 @@
   --warning-strong: #f2b84b;
   --danger: #f0707f;
   --danger-strong: #f0707f;
-  --info: #5aaee0;
-  --info-strong: #5aaee0;
+  --info: #38bdf8;
+  --info-strong: #38bdf8;
 
-  --chart-1: #ff7a1a;
-  --chart-2: #5aaee0;
+  --chart-1: #38bdf8;
+  --chart-2: #3b82f6;
   --chart-3: #3cc98b;
-  --chart-4: #5aaee0;
+  --chart-4: #38bdf8;
   --chart-5: #f2b84b;
 }
 

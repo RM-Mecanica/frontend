@@ -15,7 +15,7 @@ export function ActivityItem({ entry }: { entry: FinancialEntry }) {
           "flex size-8 items-center justify-center rounded-md [&_svg]:size-4",
           isRevenue
             ? "bg-success/15 text-success-strong"
-            : "bg-primary/15 text-primary",
+            : "bg-danger/15 text-danger-strong",
         )}
       >
         {isRevenue ? <ArrowUpRight /> : <ArrowDownRight />}
@@ -29,7 +29,7 @@ export function ActivityItem({ entry }: { entry: FinancialEntry }) {
       <b
         className={cn(
           "text-xs tabular-nums",
-          isRevenue ? "text-success-strong" : "text-primary",
+          isRevenue ? "text-success-strong" : "text-danger-strong",
         )}
       >
         {isRevenue ? "+" : "-"} {formatBRL(entry.amountCents)}
