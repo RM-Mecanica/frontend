@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
-  BarChart3,
   CarFront,
   CircleDollarSign,
   ClipboardList,
@@ -18,21 +19,21 @@ import { cn } from "@/lib/utils";
 import { Logo } from "@/components/atoms/logo";
 
 // Organismo de layout: sidebar navy da área logada. Drawer abaixo de 1024px,
-// fixa a partir daí (design.md, seção Layout).
-type NavItem = { label: string; icon: typeof LayoutDashboard };
+// fixa a partir daí (design.md, seção Layout). As rotas de fase futura
+// (Ordens, Veículos) ainda apontam para a tela que existe.
+type NavItem = { label: string; icon: typeof LayoutDashboard; href: string };
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Visão geral", icon: LayoutDashboard },
-  { label: "Ordens de serviço", icon: ClipboardList },
-  { label: "Veículos", icon: CarFront },
-  { label: "Clientes", icon: Users },
-  { label: "Financeiro", icon: CircleDollarSign },
-  { label: "Relatórios", icon: BarChart3 },
+  { label: "Visão geral", icon: LayoutDashboard, href: "/" },
+  { label: "Ordens de serviço", icon: ClipboardList, href: "/" },
+  { label: "Veículos", icon: CarFront, href: "/" },
+  { label: "Clientes", icon: Users, href: "/clientes" },
+  { label: "Financeiro", icon: CircleDollarSign, href: "/financeiro" },
 ];
 
 export function AppSidebar() {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("Visão geral");
+  const pathname = usePathname();
 
   return (
     <>
@@ -84,24 +85,26 @@ export function AppSidebar() {
           Menu principal
         </p>
         <nav className="flex flex-col gap-1">
-          {NAV_ITEMS.map(({ label, icon: Icon }) => (
-            <button
-              key={label}
-              onClick={() => {
-                setActive(label);
-                setOpen(false);
-              }}
-              className={cn(
-                "flex min-h-11 items-center gap-3 rounded-md px-3 py-3 text-left text-[13px] font-bold transition-colors",
-                active === label
-                  ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                  : "text-sidebar-foreground hover:bg-white/10",
-              )}
-            >
-              <Icon className="size-[18px]" strokeWidth={1.8} />
-              {label}
-            </button>
-          ))}
+          {NAV_ITEMS.map(({ label, icon: Icon, href }) => {
+            const active = pathname === href;
+            return (
+              <Link
+                key={label}
+                href={href}
+                onClick={() => setOpen(false)}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "flex min-h-11 items-center gap-3 rounded-md px-3 py-3 text-left text-[13px] font-bold transition-colors",
+                  active
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                    : "text-sidebar-foreground hover:bg-white/10",
+                )}
+              >
+                <Icon className="size-[18px]" strokeWidth={1.8} />
+                {label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="mt-auto rounded-lg bg-sidebar-accent p-4">

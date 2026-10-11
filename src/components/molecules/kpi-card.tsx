@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 
 import { Card } from "@/components/molecules/card";
 import { cn } from "@/lib/utils";
@@ -6,7 +7,7 @@ import { cn } from "@/lib/utils";
 export type KpiTone = "primary" | "secondary" | "success" | "danger";
 
 // Molécula: cartão de indicador. Ícone, rótulo em caixa alta, número grande
-// (Montserrat), variação e nota. Cor por token (nunca hex).
+// (Montserrat), variação com seta e nota. Cor por token (nunca hex).
 const ICON_TONE: Record<KpiTone, string> = {
   primary: "bg-primary/15 text-primary",
   secondary: "bg-secondary/10 text-secondary",
@@ -31,6 +32,7 @@ export function KpiCard({
   tone?: KpiTone;
   trend?: "up" | "down";
 }) {
+  const down = trend === "down";
   return (
     <Card className="p-5">
       <div className="flex items-start justify-between">
@@ -45,10 +47,15 @@ export function KpiCard({
         {detail ? (
           <span
             className={cn(
-              "text-xs font-bold",
-              trend === "down" ? "text-danger-strong" : "text-success-strong",
+              "inline-flex items-center gap-0.5 text-xs font-bold",
+              down ? "text-danger-strong" : "text-success-strong",
             )}
           >
+            {down ? (
+              <ArrowDownRight className="size-3.5" />
+            ) : (
+              <ArrowUpRight className="size-3.5" />
+            )}
             {detail}
           </span>
         ) : null}

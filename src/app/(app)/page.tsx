@@ -12,7 +12,9 @@ import { FinanceChart } from "@/components/organisms/finance-chart";
 import { OsSummary } from "@/components/organisms/os-summary";
 import { RecentOrdersTable } from "@/components/organisms/recent-orders-table";
 import { NewOrderDialog } from "@/components/organisms/new-order-dialog";
-import { recentOrders } from "@/lib/mock-data";
+import { ActivityPanel } from "@/components/organisms/activity-panel";
+import { AgendaPanel } from "@/components/organisms/agenda-panel";
+import { recentOrders, financialEntries } from "@/lib/mock-data";
 
 // Página (Server Component): preenche o DashboardTemplate com conteúdo real.
 // Sem estrutura de layout aqui — isso é responsabilidade do template.
@@ -71,6 +73,12 @@ export default function DashboardPage() {
         </>
       }
       table={<RecentOrdersTable orders={recentOrders} />}
+      lower={
+        <>
+          <ActivityPanel entries={financialEntries.slice(0, 4)} />
+          <AgendaPanel />
+        </>
+      }
     />
   );
 }

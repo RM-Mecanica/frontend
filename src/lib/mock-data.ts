@@ -83,3 +83,72 @@ export const osSummary = {
   ],
   ticketCents: 114550,
 };
+
+// --- Clientes, veículos e financeiro (telas Clientes e Financeiro) ---
+
+import type { Customer } from "@/domain/customer/customer";
+import type { Vehicle } from "@/domain/vehicle/vehicle";
+import type { FinancialEntry } from "@/domain/finance/entry";
+
+export const customers: Customer[] = [
+  { id: "c1", name: "Marcos Oliveira", phone: "(11) 98888-1020", email: "marcos@email.com" },
+  { id: "c2", name: "Juliana Costa", phone: "(11) 97777-3344", email: "juliana@email.com" },
+  { id: "c3", name: "André Souza", phone: "(11) 96666-7788", email: "andre@email.com" },
+  { id: "c4", name: "Carla Mendes", phone: "(11) 95555-9900", email: "carla@email.com" },
+  { id: "c5", name: "Roberto Dias", phone: "(11) 94444-1212", email: "roberto@email.com" },
+  { id: "c6", name: "Patrícia Lima", phone: "(11) 93333-4545", email: "patricia@email.com" },
+];
+
+export const vehicles: Vehicle[] = [
+  { id: "v1", customerId: "c1", plate: "RMT-4F82", model: "Honda Civic", year: 2020 },
+  { id: "v2", customerId: "c2", plate: "GQV-9A17", model: "Toyota Corolla", year: 2022 },
+  { id: "v3", customerId: "c3", plate: "KLM-2D45", model: "Chevrolet Onix", year: 2019 },
+  { id: "v4", customerId: "c4", plate: "QWE-8B31", model: "VW T-Cross", year: 2021 },
+  { id: "v5", customerId: "c1", plate: "ABC-1D23", model: "Honda Fit", year: 2018 },
+  { id: "v6", customerId: "c5", plate: "FTR-2C88", model: "Jeep Renegade", year: 2023 },
+];
+
+export const financialEntries: FinancialEntry[] = [
+  { id: "f1", kind: "receita", description: "OS #02022 - Freios e suspensão", category: "Serviço", amountCents: 214000, date: "2026-10-10" },
+  { id: "f2", kind: "custo", description: "Compra de pastilhas de freio", category: "Peças", amountCents: 48000, date: "2026-10-09" },
+  { id: "f3", kind: "receita", description: "OS #02020 - Revisão completa", category: "Serviço", amountCents: 132000, date: "2026-10-08" },
+  { id: "f4", kind: "custo", description: "Óleo lubrificante (lote)", category: "Insumos", amountCents: 36000, date: "2026-10-07" },
+  { id: "f5", kind: "receita", description: "OS #02018 - Diagnóstico eletrônico", category: "Serviço", amountCents: 78000, date: "2026-10-06" },
+  { id: "f6", kind: "custo", description: "Energia elétrica", category: "Fixo", amountCents: 52000, date: "2026-10-05" },
+];
+
+/** KPIs financeiros derivados (dinheiro em centavos). */
+export const financeTotals = {
+  revenueCents: financialEntries
+    .filter((e) => e.kind === "receita")
+    .reduce((sum, e) => sum + e.amountCents, 0),
+  costCents: financialEntries
+    .filter((e) => e.kind === "custo")
+    .reduce((sum, e) => sum + e.amountCents, 0),
+};
+
+/** Série do mini-gráfico de linha: receita x custo nos últimos 6 meses. */
+export const financeTrend: {
+  month: string;
+  revenue: number;
+  cost: number;
+}[] = [
+  { month: "Mai", revenue: 62, cost: 38 },
+  { month: "Jun", revenue: 70, cost: 42 },
+  { month: "Jul", revenue: 66, cost: 40 },
+  { month: "Ago", revenue: 82, cost: 50 },
+  { month: "Set", revenue: 88, cost: 48 },
+  { month: "Out", revenue: 96, cost: 55 },
+];
+
+/** Compromissos da agenda do dia (tela Visão geral). */
+export const agenda: {
+  time: string;
+  title: string;
+  detail: string;
+  tone: "secondary" | "primary" | "success";
+}[] = [
+  { time: "09:30", title: "Entrega de veículo", detail: "Jeep Renegade · FTR-2C88", tone: "secondary" },
+  { time: "11:00", title: "Avaliação e orçamento", detail: "Ford Ka · Cliente novo", tone: "primary" },
+  { time: "14:30", title: "Retorno programado", detail: "Honda Civic · GRA-4E21", tone: "success" },
+];

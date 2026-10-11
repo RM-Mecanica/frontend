@@ -8,18 +8,23 @@ export function DashboardTemplate({
   kpis,
   charts,
   table,
+  lower,
 }: {
   header: ReactNode;
   kpis: ReactNode;
   charts: ReactNode;
   table: ReactNode;
+  lower?: ReactNode;
 }) {
   return (
     <div className="mx-auto max-w-[1440px] p-5 md:p-8">
       {header}
       <div className="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{kpis}</div>
       <div className="mb-6 grid gap-5 xl:grid-cols-[1.55fr_1fr]">{charts}</div>
-      {table}
+      <div className="mb-6">{table}</div>
+      {lower ? (
+        <div className="grid gap-5 xl:grid-cols-[1.4fr_1fr]">{lower}</div>
+      ) : null}
     </div>
   );
 }
