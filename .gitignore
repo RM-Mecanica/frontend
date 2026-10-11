@@ -26,3 +26,17 @@ npm-debug.log*
 # grafo do graphify: gerado, reconstruído pelo hook post-commit a cada commit
 # recria com `graphify update .`
 graphify-out/
+
+# next.js / build extras
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+/build
+*.pem
+
+# vercel
+.vercel
