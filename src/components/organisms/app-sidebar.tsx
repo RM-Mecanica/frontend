@@ -1,43 +1,67 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
-  CarFront,
+  BarChart3,
   CircleDollarSign,
-  ClipboardList,
+  FileText,
   LayoutDashboard,
   Menu,
+  MoreHorizontal,
   Settings,
-  ShieldCheck,
+  Sparkles,
   Users,
   X,
+  type LucideIcon,
 } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/atoms/logo";
+import { WorkspaceSwitcher } from "@/components/molecules/workspace-switcher";
+import { SidebarNavItem } from "@/components/molecules/sidebar-nav-item";
+import { openOrdersCount } from "@/lib/mock-data";
 
-// Organismo de layout: sidebar navy da área logada. Drawer abaixo de 1024px,
-// fixa a partir daí (design.md, seção Layout). As rotas de fase futura
-// (Ordens, Veículos) ainda apontam para a tela que existe.
-type NavItem = { label: string; icon: typeof LayoutDashboard; href: string };
+// Organismo de layout: sidebar navy da área logada, com a divisão do layout de
+// referência — MENU PRINCIPAL e GESTÃO. Drawer abaixo de 1024px, fixa acima.
+type NavItem = {
+  label: string;
+  icon: LucideIcon;
+  href: string;
+  badge?: number;
+};
 
-const NAV_ITEMS: NavItem[] = [
+const MAIN_ITEMS: NavItem[] = [
   { label: "Visão geral", icon: LayoutDashboard, href: "/" },
-  { label: "Ordens de serviço", icon: ClipboardList, href: "/" },
-  { label: "Veículos", icon: CarFront, href: "/" },
-  { label: "Clientes", icon: Users, href: "/clientes" },
+  {
+    label: "Ordens de serviço",
+    icon: FileText,
+    href: "/ordens",
+    badge: openOrdersCount,
+  },
   { label: "Financeiro", icon: CircleDollarSign, href: "/financeiro" },
+  { label: "Clientes", icon: Users, href: "/clientes" },
 ];
+
+const MANAGEMENT_ITEMS: NavItem[] = [
+  { label: "Relatórios", icon: BarChart3, href: "/relatorios" },
+  { label: "Configurações", icon: Settings, href: "/configuracoes" },
+];
+
+/** Ativo: match exato na raiz; prefixo nas demais. Garante seleção única. */
+function isActive(pathname: string, href: string): boolean {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export function AppSidebar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const close = () => setOpen(false);
 
   return (
     <>
-      {/* Botão de abrir no mobile */}
       <button
         aria-label="Abrir menu"
         onClick={() => setOpen(true)}
@@ -50,19 +74,19 @@ export function AppSidebar() {
         <button
           aria-label="Fechar menu"
           className="fixed inset-0 z-30 bg-foreground/40 lg:hidden"
-          onClick={() => setOpen(false)}
+          onClick={close}
         />
       ) : null}
 
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 flex w-[248px] flex-col bg-sidebar px-4 py-5 text-sidebar-foreground transition-transform lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-40 flex w-[248px] flex-col overflow-y-auto bg-sidebar px-4 py-5 text-sidebar-foreground transition-transform lg:translate-x-0",
           open ? "translate-x-0" : "-translate-x-full",
         )}
       >
-        <div className="mb-10 flex items-center justify-between px-2">
+        <div className="mb-6 flex items-center justify-between px-1">
           <div className="flex items-center gap-3">
-            <Logo size={44} />
+            <Logo size={40} />
             <div>
               <p className="font-heading text-[15px] tracking-wide text-white">
                 RM MECÂNICA
@@ -72,63 +96,67 @@ export function AppSidebar() {
               </p>
             </div>
           </div>
-          <button
-            aria-label="Fechar menu"
-            onClick={() => setOpen(false)}
-            className="lg:hidden"
-          >
+          <button aria-label="Fechar menu" onClick={close} className="lg:hidden">
             <X className="size-5" />
           </button>
         </div>
 
-        <p className="mb-3 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-sidebar-foreground/60">
+        <WorkspaceSwitcher name="RM Mecânica" initials="RM" />
+
+        <p className="mb-2 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-sidebar-foreground/60">
           Menu principal
         </p>
         <nav className="flex flex-col gap-1">
-          {NAV_ITEMS.map(({ label, icon: Icon, href }) => {
-            const active = pathname === href;
-            return (
-              <Link
-                key={label}
-                href={href}
-                onClick={() => setOpen(false)}
-                aria-current={active ? "page" : undefined}
-                className={cn(
-                  "flex min-h-11 items-center gap-3 rounded-md px-3 py-3 text-left text-[13px] font-bold transition-colors",
-                  active
-                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                    : "text-sidebar-foreground hover:bg-white/10",
-                )}
-              >
-                <Icon className="size-[18px]" strokeWidth={1.8} />
-                {label}
-              </Link>
-            );
-          })}
+          {MAIN_ITEMS.map((item) => (
+            <SidebarNavItem
+              key={item.label}
+              {...item}
+              active={isActive(pathname, item.href)}
+              onNavigate={close}
+            />
+          ))}
         </nav>
 
-        <div className="mt-auto rounded-lg bg-sidebar-accent p-4">
-          <div className="mb-3 flex size-9 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground">
-            <ShieldCheck className="size-5" />
+        <p className="mb-2 mt-6 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-sidebar-foreground/60">
+          Gestão
+        </p>
+        <nav className="flex flex-col gap-1">
+          {MANAGEMENT_ITEMS.map((item) => (
+            <SidebarNavItem
+              key={item.label}
+              {...item}
+              active={isActive(pathname, item.href)}
+              onNavigate={close}
+            />
+          ))}
+        </nav>
+
+        <div className="mt-auto pt-6">
+          <div className="flex items-start gap-2.5 rounded-lg bg-sidebar-accent p-3.5">
+            <Sparkles className="mt-0.5 size-4 text-sidebar-primary" />
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-white">Tenha mais controle</p>
+              <p className="mt-1 text-[11px] leading-relaxed text-sidebar-foreground/80">
+                Veja onde sua oficina mais lucra.
+              </p>
+            </div>
+            <ArrowUpRight className="size-4 text-sidebar-foreground/70" />
           </div>
-          <p className="text-xs font-bold text-white">Tudo sob controle</p>
-          <p className="mt-1 text-[11px] leading-relaxed text-sidebar-foreground/80">
-            Acompanhe o desempenho da sua oficina em um só lugar.
-          </p>
-        </div>
-        <div className="mt-4 flex items-center gap-3 border-t border-sidebar-border px-2 pt-4">
-          <div className="flex size-8 items-center justify-center rounded-full bg-warning text-xs font-bold text-sidebar">
-            RM
+
+          <div className="mt-4 flex items-center gap-3 border-t border-sidebar-border px-1 pt-4">
+            <div className="flex size-8 items-center justify-center rounded-full bg-warning text-xs font-bold text-sidebar">
+              RC
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-xs font-bold text-white">
+                Rafael Costa
+              </p>
+              <p className="text-[10px] text-sidebar-foreground/70">
+                Administrador
+              </p>
+            </div>
+            <MoreHorizontal className="size-4 text-sidebar-foreground/70" />
           </div>
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-xs font-bold text-white">
-              Roberto Martins
-            </p>
-            <p className="text-[10px] text-sidebar-foreground/70">
-              Administrador
-            </p>
-          </div>
-          <Settings className="size-4 text-sidebar-foreground/70" />
         </div>
       </aside>
     </>

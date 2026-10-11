@@ -152,3 +152,10 @@ export const agenda: {
   { time: "11:00", title: "Avaliação e orçamento", detail: "Ford Ka · Cliente novo", tone: "primary" },
   { time: "14:30", title: "Retorno programado", detail: "Honda Civic · GRA-4E21", tone: "success" },
 ];
+
+import { isOpen } from "@/domain/service-order/status";
+
+/** Nº de OS abertas — usado no badge do item "Ordens de serviço" da sidebar. */
+export const openOrdersCount = recentOrders.filter((o) =>
+  isOpen(o.status),
+).length;
