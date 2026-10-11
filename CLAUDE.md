@@ -10,6 +10,7 @@ Sistema web de gestão de oficina mecânica: check-in e check-out de veículos e
 
 Consulte quando o assunto pedir:
 
+- `doc/brain.md` — visão consolidada do projeto (estado, stack, arquitetura, design, dívidas) num só lugar.
 - `doc/prd.md` — problema, público, escopo da primeira versão e o que fica de fora.
 - `doc/arquitetura.md` — camadas, stack, pastas, dados e permissões.
 - `doc/design.md` — cores, fontes e componentes.

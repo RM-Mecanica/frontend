@@ -5,25 +5,38 @@
 
 ## Onde o projeto parou
 
-**Atualizado em 07/10/2026.**
+**Atualizado em 11/10/2026.**
 
-- **Estado:** documentação e ferramentas montadas. **Nenhuma linha de código de produto existe.** Não há `package.json`, nem projeto Supabase.
-- **Repositório:** `github.com/RM-Mecanica/frontend`, branch `main`, quatro commits. A estrutura de 07/10/2026 está commitada direto na `main` (três commits: documentos, spec-kit, ferramentas) e **ainda não foi feito push** — `main` está 3 commits à frente de `origin/main`.
-- **Fase:** antes da Fase 1. Tarefa base B00 concluída; B01 é a próxima.
+- **Estado:** o scaffold Next.js existe e roda. Há uma **base de UI (protótipo visual)** com quatro telas navegáveis (Visão geral, Ordens de serviço, Financeiro, Clientes) e placeholders de Relatórios e Configurações. **Ainda não há Supabase, data layer, Server Actions, RLS nem testes** — tudo é mock tipado pelo domínio.
+- **Repositório:** `github.com/RM-Mecanica/frontend`, branch `main`, sincronizada com `origin/main` (último push em 11/10/2026). Build, lint e typecheck passam; deploy pretendido na Vercel.
+- **Fase:** base (B02/B04 feitas; B03/B05 parciais). A UI de telas é protótipo **fora do fluxo spec-kit** — ao virar feature de verdade (dados reais), cada tela entra como pedido da fase correspondente.
 
 ## Próximo passo
 
-1. Revisar os três commits e dar `git push`.
-2. Liberar espaço em disco na máquina de desenvolvimento (ver Bloqueios).
-3. Fechar as três decisões que travam o scaffold: D1, D2 e D3 abaixo.
-4. Seguir `tarefas.md` a partir de B02 (criar o projeto Next.js).
-5. Com a base pronta, abrir o primeiro pedido: `/speckit-specify` com o texto de P1.1.
+1. Fechar as decisões que travam o scaffold de dados: **D1** (Supabase confirmado?), **D2** (idioma das colunas), **D3** (deploy — Vercel?).
+2. Completar a base: `src/data/` + clientes Supabase (B06), regra de lint de camadas (B05), Vitest + helpers de domínio com teste (B07/B09), CI (B08).
+3. Abrir o primeiro pedido de produto pelo spec-kit: `/speckit-specify` com o texto de **P1.1 (Autenticação e perfis)**.
+4. Conforme as features reais chegam, **substituir os mocks** (`src/lib/mock-data.ts`) por `queries`/Server Actions, e reconciliar as telas protótipo com os status e regras do domínio.
 
 ## Bloqueios
 
-- **Disco cheio.** Na máquina onde a estrutura foi montada, o disco de 228 GB tinha cerca de 120 MB livres em 07/10/2026. Um `npm install` de projeto Next.js não cabe nisso. Durante a montagem, a instalação do spec-kit pelo GitHub falhou por falta de espaço (foi instalado pelo PyPI) e um comando chegou a falhar com "no space left on device".
+- Nenhum ativo. (O disco cheio de 07/10 não impediu o `npm install` nesta máquina.)
 
 ## O que já foi feito
+
+### 11/10/2026 — scaffold Next.js e base de UI (protótipo)
+
+- **Scaffold** Next.js 16.4 (App Router), React 19, TypeScript strict, Tailwind v4, ESLint. Gerado em pasta temporária e movido para a raiz do `frontend` (o `create-next-app` recusou a pasta não vazia, nem com `.` nem com espaço). `app/` movido para `src/app/`, alias `@/*` → `./src/*`.
+- **Tokens de design** no `globals.css` (claro e escuro) e fontes Montserrat + Open Sans via `next/font`.
+- **Migração do protótipo da v0** (`sistema-de-gestao-oficina/`, hoje removível): a dashboard monolítica foi **traduzida** para a arquitetura — decomposta em Atomic Design, sem copiar código nem cores hex da v0.
+- **Atomic Design puro** adotado na camada de componentes (escolha do dono): `components/{atoms,molecules,organisms,templates}` no lugar de `{ui,shared,layout}`. Hierarquia unidirecional conferida (átomo→molécula→organismo→template).
+- **Telas (protótipo visual, mock):** Visão geral (KPIs, gráfico, resumo de OS, tabela recente, movimentações, agenda), Ordens de serviço (filtros + tabela), Financeiro (KPIs + lançamentos), Clientes (grade de cards). Relatórios e Configurações como placeholder "em breve".
+- **Sidebar** no layout de referência (Bolt): seções Menu principal / Gestão, workspace switcher, badge de OS abertas, perfil. Navegação por rota real (App Router), seleção única.
+- **Logo real** (`public/logo.jpg`) aplicada; **paleta realinhada à logo** (navy `#1E3A8A` + cyan `#0EA5E9`), laranja removido da marca, contrastes WCAG medidos. Antes a paleta vinha da arte do Canva.
+- **Domínio puro** iniciado: `service-order/status`, `customer`, `vehicle`, `finance/entry` (dinheiro em centavos). Helpers em `lib/format.ts` (`formatBRL`, `formatDate`).
+- Dados de exemplo em `src/lib/mock-data.ts`, tipados pelo domínio. **Sem Supabase.**
+- `doc/arquitetura.md`, `doc/design.md`, `doc/regras.md` atualizados para refletir Atomic Design e a nova paleta. Commits e push na `main` (`RM-Mecanica/frontend`).
+- Consultados os MCPs `kh-design` e `kh-frontend` nas decisões de decomposição, navegação e paleta.
 
 ### 07/10/2026 — estrutura inicial
 
@@ -50,6 +63,10 @@
 | 07/10/2026 | Sem `.mcp.json` no repositório | Os MCPs `kh-*` são locais, configurados no usuário com caminhos absolutos |
 | 07/10/2026 | `graphify-out/` fica fora do git (resolve D9) | É gerado, e o hook `post-commit` o reescreve a cada commit, deixando a árvore suja. Recria com `graphify update .` |
 | 07/10/2026 | Estrutura commitada direto na `main`, em três commits | Decisão do dono do repositório; não há ninguém mais trabalhando na branch |
+| 11/10/2026 | Camada de componentes em **Atomic Design puro** (`atoms/molecules/organisms/templates`) | Pedido do dono; mais fiel ao Atomic Design de B. Frost que o mapeamento `ui/shared/layout` |
+| 11/10/2026 | **Paleta derivada da logo** (navy + cyan); laranja fora da marca | A logo real é azul; a paleta antiga vinha da arte do Canva e destoava da marca |
+| 11/10/2026 | Telas Financeiro/Clientes/Ordens entram agora como **protótipo visual mock**, fora do spec-kit | O dono quis o design pronto; viram feature de verdade (com dados/RLS) pelo spec-kit na fase certa |
+| 11/10/2026 | Custo/saída usa `danger` (vermelho), não a cor de marca | Com navy como primária, custo em azul ficava ambíguo; vermelho é semântico para saída |
 
 ## Decisões em aberto
 
@@ -62,7 +79,7 @@
 ### Podem esperar
 
 - **D4 — Recorte da v1.** Confirmar que a v1 é só a Fase 1. A alternativa é Fase 1 + Fase 2, que já entrega orçamento, check-out e pagamento.
-- **D5 — Nome e marca.** "OFICINA PRO" é o nome fictício da arte. A documentação usa "RM Mecânica" por causa do nome da organização no GitHub. Falta logo.
+- **D5 — Nome e marca.** Resolvido em parte: nome "RM Mecânica" confirmado, **logo recebida** (`public/logo.jpg`) e paleta derivada dela. Falta um SVG/versão vetorial da logo (hoje é um JPG de ~1,2 MB) e definir favicon/ícones próprios.
 - **D6 — Lista do que fica fora do produto** (`prd.md`, seção 4): é uma proposta, precisa de aceite.
 - **D7 — Assinatura do termo de entrada.** A arte tem uma etapa "Assinatura"; o prompt pede um campo de assinatura no PDF. A documentação assume assinatura no papel. Captura na tela seria escopo novo.
 - **D8 — Bibliotecas ainda sem escolha:** arrastar no Kanban e geração de PDF. Recomendações em `arquitetura.md`, seção 3.

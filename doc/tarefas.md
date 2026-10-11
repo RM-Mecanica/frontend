@@ -14,10 +14,10 @@ Um pedido só começa quando os anteriores de que ele depende estão fechados. U
 
 - [x] **B00** Documentação inicial, spec-kit e graphify configurados (07/10/2026).
 - [ ] **B01** Fechar as decisões em aberto de `memoria.md` que travam o scaffold (nomes de colunas, destino de deploy).
-- [ ] **B02** Criar o projeto Next.js: App Router, TypeScript, Tailwind, pasta `src/`, alias `@/`. O `create-next-app` pode recusar a pasta por não estar vazia; nesse caso gere numa pasta temporária e mova os arquivos, preservando `doc/`, `.specify/`, `.claude/`, `CLAUDE.md` e `.gitignore`.
-- [ ] **B03** `shadcn init` e os componentes base: button, input, label, card, badge, dialog, sheet, select, checkbox, toggle-group, tabs, table, skeleton, sonner, command, popover, sidebar.
-- [ ] **B04** Aplicar os tokens de `design.md` no `globals.css` (claro e escuro) e carregar Montserrat e Open Sans com `next/font`.
-- [ ] **B05** Criar as pastas de `arquitetura.md` (`domain`, `data`, `features`, `components/{layout,shared}`, `lib`) e uma regra de lint que barre import fora dos limites das camadas.
+- [x] **B02** Criar o projeto Next.js: App Router, TypeScript, Tailwind, pasta `src/`, alias `@/` (11/10/2026). Gerado em pasta temporária e movido, preservando `doc/`, `.specify/`, `.claude/`, `CLAUDE.md`, `.gitignore`.
+- [~] **B03** Componentes base criados à mão no padrão shadcn (button, input, textarea, card, badge, dialog, skeleton). **Não** via `shadcn init`/CLI, e faltam: label, sheet, select, checkbox, toggle-group, tabs, sonner, command, popover, sidebar. Rever ao abrir P1.2 formal.
+- [x] **B04** Tokens de `design.md` no `globals.css` (claro e escuro) + Montserrat e Open Sans via `next/font` (11/10/2026). Paleta depois **realinhada à logo** (navy + cyan); laranja saiu da marca.
+- [~] **B05** Pastas de Atomic Design criadas (`domain`, `components/{atoms,molecules,organisms,templates}`, `lib`). **Falta** `data/` e a **regra de lint** que barra import fora das camadas. A estrutura de `components` virou Atomic puro (ver `arquitetura.md`), não `{layout,shared}`.
 - [ ] **B06** Supabase: projeto, CLI local, `.env.example`, clientes de servidor e de navegador em `src/data/supabase`, e `src/proxy.ts` renovando a sessão.
 - [ ] **B07** Qualidade: ESLint, checagem de tipos, Vitest, scripts no `package.json` (`dev`, `build`, `lint`, `typecheck`, `test`) e commitlint com o padrão de `regras.md`.
 - [ ] **B08** CI no GitHub Actions: lint, tipos, testes e build a cada pull request.
