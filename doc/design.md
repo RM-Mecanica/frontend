@@ -189,7 +189,7 @@ Na arte, o título de página tem 28 px e o corpo fica entre 14 e 17 px; a tabel
 
 ## 5. Componentes
 
-Base em shadcn/ui. Os compostos ficam em `src/components/shared` (reutilizáveis) ou na feature (específicos). A organização segue a ideia de átomos → moléculas → organismos (fonte: `kh-design`, *Atomic Design*, B. Frost): `ui/` são os átomos, `shared/` as moléculas, e as telas montam os organismos.
+Base em shadcn/ui. A organização segue Atomic Design (fonte: `kh-design`, *Atomic Design*, B. Frost), com uma pasta por nível em `src/components`: `atoms/` (blocos indivisíveis como button, input, badge, logo), `molecules/` (grupos com um propósito único: card, dialog, kpi-card, status-badge, search-field), `organisms/` (seções como app-sidebar, page-header, as tabelas e gráficos) e `templates/` (o esqueleto da tela, sem conteúdo). A página injeta o conteúdo real no template. A hierarquia é unidirecional: um átomo nunca importa uma molécula; uma molécula nunca importa um organismo.
 
 ### Estrutura
 

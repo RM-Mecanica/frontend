@@ -104,8 +104,10 @@ A árvore de pastas e a tabela de quem pode importar quem estão em `arquitetura
 | Regra pura | `src/domain/<agregado>/` | `totals.ts`, `status.ts`, `plate.ts` |
 | Teste de regra | Ao lado do arquivo | `plate.test.ts` |
 | Repositório | `src/data/repositories/` | `customers.repo.ts` |
-| Componente reutilizável | `src/components/shared/` | `status-badge.tsx` |
-| Componente shadcn | `src/components/ui/` | Como a CLI gerar |
+| Átomo (bloco indivisível) | `src/components/atoms/` | `button.tsx`, `badge.tsx` |
+| Molécula (grupo com um propósito) | `src/components/molecules/` | `status-badge.tsx`, `kpi-card.tsx` |
+| Organismo (seção da tela) | `src/components/organisms/` | `app-sidebar.tsx` |
+| Template (esqueleto sem conteúdo) | `src/components/templates/` | `dashboard-template.tsx` |
 | Formatação e constantes | `src/lib/` | `format.ts` |
 | Migration | `supabase/migrations/` | Timestamp da CLI + descrição em inglês |
 | Especificação de um pedido | `specs/NNN-nome-curto/` | Criado pelo `/speckit-specify` |
@@ -115,6 +117,7 @@ Limites que não se cruzam:
 - `domain` não importa nada de framework nem de outras camadas.
 - Uma feature não importa outra feature.
 - `components` não importa `features` nem `data`.
+- Dentro de `components`, a hierarquia Atomic é unidirecional: átomo → molécula → organismo → template. Um nível só importa níveis abaixo dele (átomo nunca importa molécula; molécula nunca importa organismo).
 
 ## 4. Fluxo de trabalho e ferramentas
 

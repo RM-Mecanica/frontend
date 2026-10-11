@@ -36,7 +36,7 @@ As dependências apontam sempre **para dentro**, na direção do domínio — a 
 | Dados | `src/data` | Repositórios e clientes do Supabase, tipos gerados do banco | `domain`, `lib` |
 | Features | `src/features/<nome>` | Casos de uso: Server Actions (escrita), consultas (leitura), schemas Zod e componentes da tela | `domain`, `data`, `components`, `lib` |
 | Rotas | `src/app` | URL, layout, carregamento, composição das features | `features`, `components`, `lib` |
-| UI compartilhada | `src/components` | Componentes sem regra de negócio | `lib`, e `domain` só para tipos |
+| UI compartilhada | `src/components` | Componentes sem regra de negócio, organizados por Atomic Design (`atoms`, `molecules`, `organisms`, `templates`) | `lib`, e `domain` só para tipos |
 | Utilitários | `src/lib` | Formatação (R$, datas), constantes | Nada do projeto |
 
 Duas consequências práticas:
@@ -112,10 +112,11 @@ frontend/
     ├── data/
     │   ├── supabase/         # clientes (server e browser) e tipos gerados
     │   └── repositories/     # um arquivo por agregado
-    ├── components/
-    │   ├── ui/               # shadcn (gerado pela CLI)
-    │   ├── layout/           # sidebar, navegação inferior, cabeçalho de página
-    │   └── shared/           # status-badge, kpi-card, plate-input, empty-state…
+    ├── components/           # Atomic Design (Brad Frost)
+    │   ├── atoms/            # blocos indivisíveis: button, input, badge, logo, section-title
+    │   ├── molecules/        # grupos com um propósito: card, dialog, kpi-card, status-badge, search-field
+    │   ├── organisms/        # seções: app-sidebar, page-header, finance-chart, recent-orders-table…
+    │   └── templates/        # esqueleto de tela sem conteúdo: dashboard-template
     ├── lib/
     └── proxy.ts              # renovação de sessão e redirecionamento (no Next 16 substitui middleware.ts)
 ```
